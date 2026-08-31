@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Exercícios</title>
+    <meta name="description" content="Lista de exercícios com estrutura de decisão, repetição e funções em JavaScript.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a href="#topo" class="brand">
+                <span class="brand-mark">&lt;/&gt;</span>
+                <span>Lista 1</span>
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="nav" id="nav">
+                <a href="#ex1">1 · Frete</a>
+                <a href="#ex2">2 · Folha</a>
+                <a href="#ex3">3 · Produção</a>
+                <a href="#ex4">4 · Hotel</a>
+                <a href="#ex5">5 · Treinos</a>
+                <a href="#ex6">6 · Vendas</a>
+            </nav>
+        </div>
+    </header>
+
+    
+    <section class="hero" id="topo">
+        <div class="hero-inner">
+            <p class="eyebrow">HTML · CSS · JavaScript</p>
+            <h1>Lista de Exercícios</h1>
+            <p class="lead">
+                Seis aplicações web responsivas que aplicam <strong>estrutura de decisão</strong>
+                (<code>if / switch</code>), <strong>comandos de repetição</strong> (<code>for / while</code>)
+                e <strong>funções</strong> em JavaScript.
+            </p>
+            <div class="hero-tags">
+                <span>Estrutura de decisão</span>
+                <span>Repetição</span>
+                <span>Funções</span>
+                <span>Layout responsivo</span>
+            </div>
+        </div>
+    </section>
+
+    <main class="wrap">
+
+        <section class="ex" id="ex1">
+            <div class="ex-head">
+                <span class="ex-num">01</span>
+                <div>
+                    <h2>Frete com múltiplos pedidos e relatório final</h2>
+                    <p>Empresa metalmecânica — cálculo de frete por região, distância e quantidade de peças, com
+                        desconto para peças excedentes e relatório consolidado.</p>
+                </div>
+            </div>
+
+            <div class="ex-grid">
+                <form class="card form" id="form1">
+                    <div class="field">
+                        <label for="e1_comb">Preço do litro de combustível (R$)</label>
+                        <input type="number" id="e1_comb" step="0.01" min="0" placeholder="Ex.: 5.89">
+                    </div>
+                    <div class="field">
+                        <label for="e1_id">Código do pedido</label>
+                        <input type="number" id="e1_id" min="1" placeholder="Ex.: 101">
+                    </div>
+                    <div class="field">
+                        <label for="e1_reg">Região</label>
+                        <select id="e1_reg">
+                            <option value="">Selecione a região</option>
+                            <option value="Sudeste">Região 1 — Sudeste (R$ 1,20/peça)</option>
+                            <option value="Sul">Região 2 — Sul (R$ 1,30/peça)</option>
+                            <option value="Centro-Oeste">Região 3 — Centro-Oeste (R$ 1,50/peça)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e1_dis">Distância (km)</label>
+                        <input type="number" id="e1_dis" step="0.01" min="0" placeholder="Ex.: 320">
+                    </div>
+                    <div class="field">
+                        <label for="e1_qtd">Quantidade de peças</label>
+                        <input type="number" id="e1_qtd" min="1" placeholder="Ex.: 1500">
+                    </div>
+                    <label class="check">
+                        <input type="checkbox" id="e1_resp">
+                        Incluir rastreamento (+ R$ 200,00 fixos)
+                    </label>
+                    <div class="actions">
+                        <button type="submit">Adicionar pedido</button>
+                        <button type="button" class="ghost" id="rel1">Gerar relatório</button>
+                    </div>
+                </form>
+
+                <div class="card output">
+                    <h3>Pedidos cadastrados</h3>
+                    <div class="list" id="e1_lista"><p class="muted">Nenhum pedido ainda.</p></div>
+                    <div class="report" id="e1_result"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ex" id="ex2">
+            <div class="ex-head">
+                <span class="ex-num">02</span>
+                <div>
+                    <h2>Folha de pagamento com bônus de desempenho</h2>
+                    <p>Rede hoteleira — salário por categoria e turno, auxílio-alimentação por faixa, bônus por
+                        avaliação (0 a 10) e relatório mensal detalhado.</p>
+                </div>
+            </div>
+
+            <div class="ex-grid">
+                <form class="card form" id="form2">
+                    <div class="field">
+                        <label for="e2_salmin">Salário mínimo atual (R$)</label>
+                        <input type="number" id="e2_salmin" step="0.01" min="0" placeholder="Ex.: 1518">
+                    </div>
+                    <div class="field">
+                        <label for="e2_id">Código do funcionário</label>
+                        <input type="number" id="e2_id" min="1" placeholder="Ex.: 7">
+                    </div>
+                    <div class="field">
+                        <label for="e2_ht">Horas trabalhadas no mês</label>
+                        <input type="number" id="e2_ht" step="0.01" min="0" placeholder="Ex.: 176">
+                    </div>
+                    <div class="field">
+                        <label for="e2_cat">Categoria</label>
+                        <select id="e2_cat">
+                            <option value="">Selecione</option>
+                            <option value="F">Funcionário operacional (F)</option>
+                            <option value="G">Gerente (G)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e2_turno">Turno</label>
+                        <select id="e2_turno">
+                            <option value="">Selecione</option>
+                            <option value="M">Matutino (M)</option>
+                            <option value="V">Vespertino (V)</option>
+                            <option value="N">Noturno (N)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e2_av">Avaliação de desempenho (0 a 10)</label>
+                        <input type="number" id="e2_av" step="0.01" min="0" max="10" placeholder="Ex.: 8.5">
+                    </div>
+                    <div class="actions">
+                        <button type="submit">Cadastrar funcionário</button>
+                        <button type="button" class="ghost" id="rel2">Gerar relatório</button>
+                    </div>
+                </form>
+
+                <div class="card output">
+                    <h3>Funcionários cadastrados</h3>
+                    <div class="list" id="e2_lista"><p class="muted">Nenhum funcionário ainda.</p></div>
+                    <div class="report" id="e2_result"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ex" id="ex3">
+            <div class="ex-head">
+                <span class="ex-num">03</span>
+                <div>
+                    <h2>Controle de produção com estoque e relatórios</h2>
+                    <p>Indústria de peças automotivas — ordens de produção, ajuste de custo por tipo de produto,
+                        alertas de estoque e consolidação por produto.</p>
+                </div>
+            </div>
+
+            <div class="ex-grid">
+                <form class="card form" id="form3">
+                    <div class="field">
+                        <label for="e3_ordem">Código da ordem</label>
+                        <input type="number" id="e3_ordem" min="1" placeholder="Ex.: 5001">
+                    </div>
+                    <div class="field">
+                        <label for="e3_produto">Código do produto</label>
+                        <input type="number" id="e3_produto" min="1" placeholder="Ex.: 42">
+                    </div>
+                    <div class="field">
+                        <label for="e3_cat">Tipo de produto</label>
+                        <select id="e3_cat">
+                            <option value="">Selecione</option>
+                            <option value="1">1 — Padrão (custo base)</option>
+                            <option value="2">2 — Premium (+10%)</option>
+                            <option value="3">3 — Sob encomenda (+20%)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e3_qtd">Quantidade produzida</label>
+                        <input type="number" id="e3_qtd" min="1" placeholder="Ex.: 1200">
+                    </div>
+                    <div class="field">
+                        <label for="e3_custo">Custo unitário base (R$)</label>
+                        <input type="number" id="e3_custo" step="0.01" min="0" placeholder="Ex.: 3.50">
+                    </div>
+                    <div class="field">
+                        <label for="e3_ini">Estoque inicial do produto</label>
+                        <input type="number" id="e3_ini" min="0" placeholder="Ex.: 400">
+                    </div>
+                    <div class="actions">
+                        <button type="submit">Registrar ordem</button>
+                        <button type="button" class="ghost" id="rel3">Gerar relatório</button>
+                    </div>
+                </form>
+
+                <div class="card output">
+                    <h3>Ordens registradas</h3>
+                    <div class="list" id="e3_lista"><p class="muted">Nenhuma ordem ainda.</p></div>
+                    <div class="report" id="e3_result"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ex" id="ex4">
+            <div class="ex-head">
+                <span class="ex-num">04</span>
+                <div>
+                    <h2>Reservas de hotel com tarifas dinâmicas</h2>
+                    <p>Rede hoteleira — tarifação por tipo de quarto e temporada, café da manhã opcional e
+                        estatísticas de ocupação e faturamento.</p>
+                </div>
+            </div>
+
+            <div class="ex-grid">
+                <form class="card form" id="form4">
+                    <div class="field">
+                        <label for="e4_diaria">Valor base da diária (R$)</label>
+                        <input type="number" id="e4_diaria" step="0.01" min="0" placeholder="Ex.: 250">
+                    </div>
+                    <div class="field">
+                        <label for="e4_cafe">Valor do café da manhã por hóspede/dia (R$)</label>
+                        <input type="number" id="e4_cafe" step="0.01" min="0" placeholder="Ex.: 35">
+                    </div>
+                    <div class="field">
+                        <label for="e4_id">Código da reserva</label>
+                        <input type="number" id="e4_id" min="1" placeholder="Ex.: 900">
+                    </div>
+                    <div class="field">
+                        <label for="e4_cat">Tipo de quarto</label>
+                        <select id="e4_cat">
+                            <option value="">Selecione</option>
+                            <option value="S">Standard (100%)</option>
+                            <option value="L">Luxo (150%)</option>
+                            <option value="P">Premium (200%)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e4_temp">Temporada</label>
+                        <select id="e4_temp">
+                            <option value="">Selecione</option>
+                            <option value="B">Baixa (sem acréscimo)</option>
+                            <option value="A">Alta (+25%)</option>
+                            <option value="F">Feriado (+40%)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e4_dias">Quantidade de diárias</label>
+                        <input type="number" id="e4_dias" min="1" placeholder="Ex.: 3">
+                    </div>
+                    <div class="field">
+                        <label for="e4_hosp">Número de hóspedes</label>
+                        <input type="number" id="e4_hosp" min="1" placeholder="Ex.: 2">
+                    </div>
+                    <label class="check">
+                        <input type="checkbox" id="e4_cafeIncl">
+                        Café da manhã incluso
+                    </label>
+                    <div class="actions">
+                        <button type="submit">Cadastrar reserva</button>
+                        <button type="button" class="ghost" id="rel4">Gerar relatório</button>
+                    </div>
+                </form>
+
+                <div class="card output">
+                    <h3>Reservas cadastradas</h3>
+                    <div class="list" id="e4_lista"><p class="muted">Nenhuma reserva ainda.</p></div>
+                    <div class="report" id="e4_result"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ex" id="ex5">
+            <div class="ex-head">
+                <span class="ex-num">05</span>
+                <div>
+                    <h2>Treinos esportivos com carga e risco de lesão</h2>
+                    <p>Clube de futebol — cálculo de carga semanal por jogador, identificação de risco de sobrecarga
+                        e médias por tipo de treino e posição.</p>
+                </div>
+            </div>
+
+            <div class="ex-grid">
+                <form class="card form" id="form5">
+                    <div class="field">
+                        <label for="e5_carga">Carga máxima semanal recomendada (pontos)</label>
+                        <input type="number" id="e5_carga" step="0.01" min="1" placeholder="Ex.: 120">
+                    </div>
+                    <div class="field">
+                        <label for="e5_codigo">Código do treino</label>
+                        <input type="text" id="e5_codigo" placeholder="Ex.: TR-01">
+                    </div>
+                    <div class="field">
+                        <label for="e5_nome">Nome do jogador</label>
+                        <input type="text" id="e5_nome" placeholder="Ex.: Ana Souza">
+                    </div>
+                    <div class="field">
+                        <label for="e5_pos">Posição</label>
+                        <select id="e5_pos">
+                            <option value="">Selecione</option>
+                            <option value="G">Goleiro (G)</option>
+                            <option value="Z">Zagueiro (Z)</option>
+                            <option value="M">Meio-campo (M)</option>
+                            <option value="A">Atacante (A)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e5_tipo">Tipo de treino</label>
+                        <select id="e5_tipo">
+                            <option value="">Selecione</option>
+                            <option value="F">Físico (×1.5)</option>
+                            <option value="T">Técnico (×1.2)</option>
+                            <option value="E">Estratégico (×1.0)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e5_dur">Duração (minutos)</label>
+                        <input type="number" id="e5_dur" min="1" placeholder="Ex.: 90">
+                    </div>
+                    <div class="field">
+                        <label for="e5_int">Intensidade (1 a 10)</label>
+                        <input type="number" id="e5_int" min="1" max="10" placeholder="Ex.: 7">
+                    </div>
+                    <div class="actions">
+                        <button type="submit">Cadastrar treino</button>
+                        <button type="button" class="ghost" id="rel5">Gerar relatório</button>
+                    </div>
+                </form>
+
+                <div class="card output">
+                    <h3>Treinos cadastrados</h3>
+                    <div class="list" id="e5_lista"><p class="muted">Nenhum treino ainda.</p></div>
+                    <div class="report" id="e5_result"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ex" id="ex6">
+            <div class="ex-head">
+                <span class="ex-num">06</span>
+                <div>
+                    <h2>Vendas com comissões, metas e performance</h2>
+                    <p>Rede de lojas — comissão base com bônus por tipo de cliente e região, acompanhamento de metas
+                        e relatório de performance por vendedor e região.</p>
+                </div>
+            </div>
+
+            <div class="ex-grid">
+                <form class="card form" id="form6">
+                    <div class="field">
+                        <label for="e6_meta">Meta mensal de vendas por vendedor (R$)</label>
+                        <input type="number" id="e6_meta" step="0.01" min="1" placeholder="Ex.: 50000">
+                    </div>
+                    <div class="field">
+                        <label for="e6_perc">Percentual base de comissão (%)</label>
+                        <input type="number" id="e6_perc" step="0.01" min="0" placeholder="Ex.: 5">
+                    </div>
+                    <div class="field">
+                        <label for="e6_venda">Código da venda</label>
+                        <input type="text" id="e6_venda" placeholder="Ex.: V-1001">
+                    </div>
+                    <div class="field">
+                        <label for="e6_vendedor">Código do vendedor</label>
+                        <input type="text" id="e6_vendedor" placeholder="Ex.: VD-07">
+                    </div>
+                    <div class="field">
+                        <label for="e6_regiao">Região da loja</label>
+                        <select id="e6_regiao">
+                            <option value="">Selecione</option>
+                            <option value="1">1 — Norte (+1%)</option>
+                            <option value="2">2 — Nordeste (+1%)</option>
+                            <option value="3">3 — Sudeste (0%)</option>
+                            <option value="4">4 — Sul (+0,5%)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="e6_valor">Valor da venda (R$)</label>
+                        <input type="number" id="e6_valor" step="0.01" min="0" placeholder="Ex.: 3200">
+                    </div>
+                    <div class="field">
+                        <label for="e6_tipo">Tipo de cliente</label>
+                        <select id="e6_tipo">
+                            <option value="">Selecione</option>
+                            <option value="PF">Pessoa Física (+2%)</option>
+                            <option value="PJ">Pessoa Jurídica (+3%)</option>
+                        </select>
+                    </div>
+                    <div class="actions">
+                        <button type="submit">Cadastrar venda</button>
+                        <button type="button" class="ghost" id="rel6">Gerar relatório</button>
+                    </div>
+                </form>
+
+                <div class="card output">
+                    <h3>Vendas registradas</h3>
+                    <div class="list" id="e6_lista"><p class="muted">Nenhuma venda ainda.</p></div>
+                    <div class="report" id="e6_result"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>Lista de Exercícios — HTML, CSS e JavaScript · <span id="ano"></span></p>
+        <p class="muted">Estrutura de decisão · Comandos de repetição · Funções</p>
+    </footer>
+
+    <a href="#topo" class="to-top" id="toTop" aria-label="Voltar ao topo">↑</a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
