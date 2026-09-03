@@ -16,19 +16,6 @@ function numero(valor) {
     return Number(valor).toFixed(2).replace(".", ",");
 }
 
-/* Mostra uma mensagem de aviso (vermelha, ou verde quando ok = true) */
-function avisar(idLista, mensagem, ok) {
-    const lista = document.getElementById(idLista);
-    if (lista.getElementsByClassName("muted").length > 0) {
-        lista.innerHTML = "";
-    }
-    let classe = "flash";
-    if (ok) {
-        classe = "flash ok";
-    }
-    lista.innerHTML = '<p class="' + classe + '">' + mensagem + "</p>" + lista.innerHTML;
-}
-
 /* Adiciona uma linha na lista de itens cadastrados */
 function adicionarItem(idLista, texto) {
     const lista = document.getElementById(idLista);
@@ -36,19 +23,6 @@ function adicionarItem(idLista, texto) {
         lista.innerHTML = "";
     }
     lista.innerHTML = "<p>" + texto + "</p>" + lista.innerHTML;
-}
-
-/* Peças usadas para montar os relatórios */
-function linha(rotulo, valor) {
-    return '<div class="row"><span>' + rotulo + "</span><span>" + valor + "</span></div>";
-}
-
-function subtitulo(texto) {
-    return '<p class="sub">' + texto + "</p>";
-}
-
-function painel(titulo, conteudo) {
-    return '<div class="panel"><h4>' + titulo + "</h4>" + conteudo + "</div>";
 }
 
 /* Diz se já existe um item com aquele código na lista (usa for) */
@@ -64,17 +38,12 @@ function jaExiste(lista, campo, valor) {
 /* Pede outro código enquanto o digitado já estiver cadastrado (while + prompt) */
 function garantirCodigoUnico(lista, campo, valor) {
     let codigo = valor;
-    const ehTexto = isNaN(Number(valor));
     while (jaExiste(lista, campo, codigo)) {
         const nova = prompt('Código "' + codigo + '" já cadastrado. Digite outro código:');
         if (nova === null || nova.trim() === "") {
             return null;
         }
-        if (ehTexto) {
-            codigo = nova.trim();
-        } else {
-            codigo = Number(nova);
-        }
+        codigo = Number(nova);
     }
     return codigo;
 }
@@ -174,17 +143,17 @@ function relatorioPedidos() {
     const media = total / pedidos.length;
 
     let html = "";
-    html += linha("Total de pedidos", pedidos.length);
-    html += linha("Valor médio por pedido", moeda(media));
-    html += subtitulo("Total acumulado por região");
-    html += linha("Sudeste", moeda(totalSudeste));
-    html += linha("Sul", moeda(totalSul));
-    html += linha("Centro-Oeste", moeda(totalCentroOeste));
-    html += subtitulo("Extremos");
-    html += linha("Pedido mais caro", "Cód. " + maisCaro.id + " — " + moeda(maisCaro.valor));
-    html += linha("Pedido mais barato", "Cód. " + maisBarato.id + " — " + moeda(maisBarato.valor));
+    html += '<div class="row"><span>Total de pedidos</span><span>' + pedidos.length + "</span></div>";
+    html += '<div class="row"><span>Valor médio por pedido</span><span>' + moeda(media) + "</span></div>";
+    html += '<p class="sub">Total acumulado por região</p>';
+    html += '<div class="row"><span>Sudeste</span><span>' + moeda(totalSudeste) + "</span></div>";
+    html += '<div class="row"><span>Sul</span><span>' + moeda(totalSul) + "</span></div>";
+    html += '<div class="row"><span>Centro-Oeste</span><span>' + moeda(totalCentroOeste) + "</span></div>";
+    html += '<p class="sub">Extremos</p>';
+    html += '<div class="row"><span>Pedido mais caro</span><span>Cód. ' + maisCaro.id + " — " + moeda(maisCaro.valor) + "</span></div>";
+    html += '<div class="row"><span>Pedido mais barato</span><span>Cód. ' + maisBarato.id + " — " + moeda(maisBarato.valor) + "</span></div>";
 
-    document.getElementById("e1_result").innerHTML = painel("Relatório final", html);
+    document.getElementById("e1_result").innerHTML = '<div class="panel"><h4>Relatório final</h4>' + html + "</div>";
 }
 
 /* =========================================================
@@ -329,20 +298,20 @@ function relatorioFolha() {
     }
 
     let html = "";
-    html += linha("Funcionários cadastrados", funcionarios.length);
-    html += linha("Média salarial geral", moeda(total / funcionarios.length));
-    html += linha("Média — operacionais (F)", moeda(mediaF));
-    html += linha("Média — gerentes (G)", moeda(mediaG));
-    html += subtitulo("Extremos");
-    html += linha("Maior salário", "Cód. " + maior.id + " · " + maior.categoria + "/" + maior.turno + " · " + moeda(maior.salarioFinal));
-    html += linha("Menor salário", "Cód. " + menor.id + " · " + menor.categoria + "/" + menor.turno + " · " + moeda(menor.salarioFinal));
-    html += subtitulo("Funcionários por faixa de bônus");
-    html += linha("Bônus 10%", faixa10);
-    html += linha("Bônus 5%", faixa5);
-    html += linha("Bônus 2%", faixa2);
-    html += linha("Sem bônus", faixaNenhum);
+    html += '<div class="row"><span>Funcionários cadastrados</span><span>' + funcionarios.length + "</span></div>";
+    html += '<div class="row"><span>Média salarial geral</span><span>' + moeda(total / funcionarios.length) + "</span></div>";
+    html += '<div class="row"><span>Média — operacionais (F)</span><span>' + moeda(mediaF) + "</span></div>";
+    html += '<div class="row"><span>Média — gerentes (G)</span><span>' + moeda(mediaG) + "</span></div>";
+    html += '<p class="sub">Extremos</p>';
+    html += '<div class="row"><span>Maior salário</span><span>Cód. ' + maior.id + " · " + maior.categoria + "/" + maior.turno + " · " + moeda(maior.salarioFinal) + "</span></div>";
+    html += '<div class="row"><span>Menor salário</span><span>Cód. ' + menor.id + " · " + menor.categoria + "/" + menor.turno + " · " + moeda(menor.salarioFinal) + "</span></div>";
+    html += '<p class="sub">Funcionários por faixa de bônus</p>';
+    html += '<div class="row"><span>Bônus 10%</span><span>' + faixa10 + "</span></div>";
+    html += '<div class="row"><span>Bônus 5%</span><span>' + faixa5 + "</span></div>";
+    html += '<div class="row"><span>Bônus 2%</span><span>' + faixa2 + "</span></div>";
+    html += '<div class="row"><span>Sem bônus</span><span>' + faixaNenhum + "</span></div>";
 
-    document.getElementById("e2_result").innerHTML = painel("Relatório mensal", html);
+    document.getElementById("e2_result").innerHTML = '<div class="panel"><h4>Relatório mensal</h4>' + html + "</div>";
 }
 
 /* =========================================================
@@ -464,24 +433,24 @@ function relatorioProducao() {
     }
 
     let html = "";
-    html += linha("Total de ordens", ordens.length);
-    html += linha("Média de custo por ordem", moeda(totalCusto / ordens.length));
-    html += subtitulo("Estoque final por tipo");
-    html += linha("Padrão", estoquePadrao);
-    html += linha("Premium", estoquePremium);
-    html += linha("Sob encomenda", estoqueEncomenda);
-    html += subtitulo("Extremos e alertas");
-    html += linha("Maior custo", "Ordem " + maior.idOrdem + " — " + moeda(maior.custoTotal));
-    html += linha("Menor custo", "Ordem " + menor.idOrdem + " — " + moeda(menor.custoTotal));
-    html += linha("Alertas de estoque alto", alertasAlto);
-    html += linha("Alertas de estoque crítico", alertasCritico);
-    html += subtitulo("Consolidado por produto");
+    html += '<div class="row"><span>Total de ordens</span><span>' + ordens.length + "</span></div>";
+    html += '<div class="row"><span>Média de custo por ordem</span><span>' + moeda(totalCusto / ordens.length) + "</span></div>";
+    html += '<p class="sub">Estoque final por tipo</p>';
+    html += '<div class="row"><span>Padrão</span><span>' + estoquePadrao + "</span></div>";
+    html += '<div class="row"><span>Premium</span><span>' + estoquePremium + "</span></div>";
+    html += '<div class="row"><span>Sob encomenda</span><span>' + estoqueEncomenda + "</span></div>";
+    html += '<p class="sub">Extremos e alertas</p>';
+    html += '<div class="row"><span>Maior custo</span><span>Ordem ' + maior.idOrdem + " — " + moeda(maior.custoTotal) + "</span></div>";
+    html += '<div class="row"><span>Menor custo</span><span>Ordem ' + menor.idOrdem + " — " + moeda(menor.custoTotal) + "</span></div>";
+    html += '<div class="row"><span>Alertas de estoque alto</span><span>' + alertasAlto + "</span></div>";
+    html += '<div class="row"><span>Alertas de estoque crítico</span><span>' + alertasCritico + "</span></div>";
+    html += '<p class="sub">Consolidado por produto</p>';
     for (let k = 0; k < porProduto.length; k++) {
-        html += linha("Produto " + porProduto[k].codigo,
-            "estoque " + porProduto[k].estoque + " · " + moeda(porProduto[k].investido));
+        html += '<div class="row"><span>Produto ' + porProduto[k].codigo + "</span><span>estoque " +
+            porProduto[k].estoque + " · " + moeda(porProduto[k].investido) + "</span></div>";
     }
 
-    document.getElementById("e3_result").innerHTML = painel("Relatório consolidado", html);
+    document.getElementById("e3_result").innerHTML = '<div class="panel"><h4>Relatório consolidado</h4>' + html + "</div>";
 }
 
 /* =========================================================
@@ -599,24 +568,24 @@ function relatorioReservas() {
     }
 
     let html = "";
-    html += linha("Total de reservas", reservas.length);
-    html += linha("Valor médio por reserva", moeda(total / reservas.length));
-    html += subtitulo("Faturamento por tipo de quarto");
-    html += linha("Standard", moeda(tipoS));
-    html += linha("Luxo", moeda(tipoL));
-    html += linha("Premium", moeda(tipoP));
-    html += subtitulo("Faturamento por temporada");
-    html += linha("Baixa", moeda(tempB));
-    html += linha("Alta", moeda(tempA));
-    html += linha("Feriado", moeda(tempF));
-    html += subtitulo("Extremos e café da manhã");
-    html += linha("Reserva mais cara", "Cód. " + maior.id + " · " + maior.tipo + "/" + maior.temp + " · " + maior.hospedes + " hósp. · " + moeda(maior.valor));
-    html += linha("Reserva mais barata", "Cód. " + menor.id + " · " + menor.tipo + "/" + menor.temp + " · " + menor.hospedes + " hósp. · " + moeda(menor.valor));
-    html += linha("Com café / sem café", comCafe + " / " + semCafe);
-    html += linha("Ocupação total (diárias × hóspedes)", ocupacao);
-    html += linha("Valor médio por hóspede", moeda(total / ocupacao));
+    html += '<div class="row"><span>Total de reservas</span><span>' + reservas.length + "</span></div>";
+    html += '<div class="row"><span>Valor médio por reserva</span><span>' + moeda(total / reservas.length) + "</span></div>";
+    html += '<p class="sub">Faturamento por tipo de quarto</p>';
+    html += '<div class="row"><span>Standard</span><span>' + moeda(tipoS) + "</span></div>";
+    html += '<div class="row"><span>Luxo</span><span>' + moeda(tipoL) + "</span></div>";
+    html += '<div class="row"><span>Premium</span><span>' + moeda(tipoP) + "</span></div>";
+    html += '<p class="sub">Faturamento por temporada</p>';
+    html += '<div class="row"><span>Baixa</span><span>' + moeda(tempB) + "</span></div>";
+    html += '<div class="row"><span>Alta</span><span>' + moeda(tempA) + "</span></div>";
+    html += '<div class="row"><span>Feriado</span><span>' + moeda(tempF) + "</span></div>";
+    html += '<p class="sub">Extremos e café da manhã</p>';
+    html += '<div class="row"><span>Reserva mais cara</span><span>Cód. ' + maior.id + " · " + maior.tipo + "/" + maior.temp + " · " + maior.hospedes + " hósp. · " + moeda(maior.valor) + "</span></div>";
+    html += '<div class="row"><span>Reserva mais barata</span><span>Cód. ' + menor.id + " · " + menor.tipo + "/" + menor.temp + " · " + menor.hospedes + " hósp. · " + moeda(menor.valor) + "</span></div>";
+    html += '<div class="row"><span>Com café / sem café</span><span>' + comCafe + " / " + semCafe + "</span></div>";
+    html += '<div class="row"><span>Ocupação total (diárias × hóspedes)</span><span>' + ocupacao + "</span></div>";
+    html += '<div class="row"><span>Valor médio por hóspede</span><span>' + moeda(total / ocupacao) + "</span></div>";
 
-    document.getElementById("e4_result").innerHTML = painel("Relatório de ocupação", html);
+    document.getElementById("e4_result").innerHTML = '<div class="panel"><h4>Relatório de ocupação</h4>' + html + "</div>";
 }
 
 /* =========================================================
@@ -791,23 +760,23 @@ function relatorioTreinos() {
     }
 
     let html = "";
-    html += linha("Total de treinos", treinos.length);
-    html += linha("Jogadores cadastrados", jogadores.length);
-    html += linha("Jogadores com risco de lesão", comRisco);
-    html += subtitulo("Extremos");
-    html += linha("Maior carga semanal", maior.nome + " (" + maior.posicao + ") · " + maior.treinos + " treinos · " + numero(maior.cargaSemanal));
-    html += linha("Menor carga semanal", menor.nome + " (" + menor.posicao + ") · " + menor.treinos + " treinos · " + numero(menor.cargaSemanal));
-    html += subtitulo("Carga média por tipo de treino");
-    html += linha("Físico", numero(mediaFisico));
-    html += linha("Técnico", numero(mediaTecnico));
-    html += linha("Estratégico", numero(mediaEstrategico));
-    html += subtitulo("Por posição (treinos · carga média)");
-    html += linha("Goleiro", trGoleiro + " · " + numero(mediaGoleiro));
-    html += linha("Zagueiro", trZagueiro + " · " + numero(mediaZagueiro));
-    html += linha("Meio-campo", trMeio + " · " + numero(mediaMeio));
-    html += linha("Atacante", trAtacante + " · " + numero(mediaAtacante));
+    html += '<div class="row"><span>Total de treinos</span><span>' + treinos.length + "</span></div>";
+    html += '<div class="row"><span>Jogadores cadastrados</span><span>' + jogadores.length + "</span></div>";
+    html += '<div class="row"><span>Jogadores com risco de lesão</span><span>' + comRisco + "</span></div>";
+    html += '<p class="sub">Extremos</p>';
+    html += '<div class="row"><span>Maior carga semanal</span><span>' + maior.nome + " (" + maior.posicao + ") · " + maior.treinos + " treinos · " + numero(maior.cargaSemanal) + "</span></div>";
+    html += '<div class="row"><span>Menor carga semanal</span><span>' + menor.nome + " (" + menor.posicao + ") · " + menor.treinos + " treinos · " + numero(menor.cargaSemanal) + "</span></div>";
+    html += '<p class="sub">Carga média por tipo de treino</p>';
+    html += '<div class="row"><span>Físico</span><span>' + numero(mediaFisico) + "</span></div>";
+    html += '<div class="row"><span>Técnico</span><span>' + numero(mediaTecnico) + "</span></div>";
+    html += '<div class="row"><span>Estratégico</span><span>' + numero(mediaEstrategico) + "</span></div>";
+    html += '<p class="sub">Por posição (treinos · carga média)</p>';
+    html += '<div class="row"><span>Goleiro</span><span>' + trGoleiro + " · " + numero(mediaGoleiro) + "</span></div>";
+    html += '<div class="row"><span>Zagueiro</span><span>' + trZagueiro + " · " + numero(mediaZagueiro) + "</span></div>";
+    html += '<div class="row"><span>Meio-campo</span><span>' + trMeio + " · " + numero(mediaMeio) + "</span></div>";
+    html += '<div class="row"><span>Atacante</span><span>' + trAtacante + " · " + numero(mediaAtacante) + "</span></div>";
 
-    document.getElementById("e5_result").innerHTML = painel("Relatório de treinos", html);
+    document.getElementById("e5_result").innerHTML = '<div class="panel"><h4>Relatório de treinos</h4>' + html + "</div>";
 }
 
 /* =========================================================
@@ -965,73 +934,31 @@ function relatorioVendas() {
     }
 
     let html = "";
-    html += linha("Total de vendas", vendas.length);
-    html += linha("Comissão média geral", moeda(comissaoGeral / vendas.length));
-    html += linha("Vendedores que bateram a meta", bateramMeta);
-    html += subtitulo("Valor vendido por região");
-    html += linha("Norte", moeda(valorNorte));
-    html += linha("Nordeste", moeda(valorNordeste));
-    html += linha("Sudeste", moeda(valorSudeste));
-    html += linha("Sul", moeda(valorSul));
-    html += subtitulo("Valor vendido por tipo de cliente");
-    html += linha("Pessoa Física", moeda(valorPF));
-    html += linha("Pessoa Jurídica", moeda(valorPJ));
-    html += subtitulo("Destaques");
-    html += linha("Maior valor de vendas", maiorVenda.codigo + " — " + moeda(maiorVenda.vendido));
-    html += linha("Maior comissão total", maiorComissao.codigo + " — " + moeda(maiorComissao.comissao));
-    html += subtitulo("Comissão média por região");
-    html += linha("Norte", moeda(mediaComNorte));
-    html += linha("Nordeste", moeda(mediaComNordeste));
-    html += linha("Sudeste", moeda(mediaComSudeste));
-    html += linha("Sul", moeda(mediaComSul));
+    html += '<div class="row"><span>Total de vendas</span><span>' + vendas.length + "</span></div>";
+    html += '<div class="row"><span>Comissão média geral</span><span>' + moeda(comissaoGeral / vendas.length) + "</span></div>";
+    html += '<div class="row"><span>Vendedores que bateram a meta</span><span>' + bateramMeta + "</span></div>";
+    html += '<p class="sub">Valor vendido por região</p>';
+    html += '<div class="row"><span>Norte</span><span>' + moeda(valorNorte) + "</span></div>";
+    html += '<div class="row"><span>Nordeste</span><span>' + moeda(valorNordeste) + "</span></div>";
+    html += '<div class="row"><span>Sudeste</span><span>' + moeda(valorSudeste) + "</span></div>";
+    html += '<div class="row"><span>Sul</span><span>' + moeda(valorSul) + "</span></div>";
+    html += '<p class="sub">Valor vendido por tipo de cliente</p>';
+    html += '<div class="row"><span>Pessoa Física</span><span>' + moeda(valorPF) + "</span></div>";
+    html += '<div class="row"><span>Pessoa Jurídica</span><span>' + moeda(valorPJ) + "</span></div>";
+    html += '<p class="sub">Destaques</p>';
+    html += '<div class="row"><span>Maior valor de vendas</span><span>' + maiorVenda.codigo + " — " + moeda(maiorVenda.vendido) + "</span></div>";
+    html += '<div class="row"><span>Maior comissão total</span><span>' + maiorComissao.codigo + " — " + moeda(maiorComissao.comissao) + "</span></div>";
+    html += '<p class="sub">Comissão média por região</p>';
+    html += '<div class="row"><span>Norte</span><span>' + moeda(mediaComNorte) + "</span></div>";
+    html += '<div class="row"><span>Nordeste</span><span>' + moeda(mediaComNordeste) + "</span></div>";
+    html += '<div class="row"><span>Sudeste</span><span>' + moeda(mediaComSudeste) + "</span></div>";
+    html += '<div class="row"><span>Sul</span><span>' + moeda(mediaComSul) + "</span></div>";
 
-    document.getElementById("e6_result").innerHTML = painel("Relatório de performance", html);
+    document.getElementById("e6_result").innerHTML = '<div class="panel"><h4>Relatório de performance</h4>' + html + "</div>";
 }
 
-/* =========================================================
-   LIGAÇÃO DOS EVENTOS + NAVEGAÇÃO
-   ========================================================= */
-function abrirFecharMenu() {
-    const nav = document.getElementById("nav");
-    const botao = document.getElementById("navToggle");
-    if (nav.classList.contains("open")) {
-        nav.classList.remove("open");
-        botao.setAttribute("aria-expanded", "false");
-    } else {
-        nav.classList.add("open");
-        botao.setAttribute("aria-expanded", "true");
-    }
-}
 
-function fecharMenu() {
-    document.getElementById("nav").classList.remove("open");
-}
 
-function atualizarNavegacao() {
-    const toTop = document.getElementById("toTop");
-    if (window.scrollY > 500) {
-        toTop.classList.add("show");
-    } else {
-        toTop.classList.remove("show");
-    }
-
-    const secoes = document.getElementsByClassName("ex");
-    let atual = "";
-    for (let i = 0; i < secoes.length; i++) {
-        if (window.scrollY >= secoes[i].offsetTop - 120) {
-            atual = secoes[i].id;
-        }
-    }
-
-    const links = document.getElementById("nav").getElementsByTagName("a");
-    for (let i = 0; i < links.length; i++) {
-        if (links[i].getAttribute("href") === "#" + atual) {
-            links[i].classList.add("active");
-        } else {
-            links[i].classList.remove("active");
-        }
-    }
-}
 
 function iniciar() {
     // cada formulário chama a sua função ao ser enviado
@@ -1053,16 +980,6 @@ function iniciar() {
     // menu (aparece no celular)
     document.getElementById("navToggle").addEventListener("click", abrirFecharMenu);
 
-    const linksMenu = document.getElementById("nav").getElementsByTagName("a");
-    for (let i = 0; i < linksMenu.length; i++) {
-        linksMenu[i].addEventListener("click", fecharMenu);
-    }
-
-    // botão "voltar ao topo" + link ativo do menu conforme a rolagem
-    window.addEventListener("scroll", atualizarNavegacao);
-
-    // ano no rodapé
-    document.getElementById("ano").textContent = new Date().getFullYear();
 }
 
 document.addEventListener("DOMContentLoaded", iniciar);
